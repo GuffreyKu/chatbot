@@ -4,6 +4,8 @@ from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from src.memory import InMemoryHistory
+from src.pdf_embeding import pdf_embeding
+
 
 app = Flask(__name__)
 

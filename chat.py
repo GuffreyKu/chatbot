@@ -9,7 +9,8 @@ if __name__ == '__main__':
     while True:
         user_input = input("user: ")
         
-        if user_input == "exit":
+        if user_input.lower() in ["quit", "exit", "q"]:
+            print("Goodbye!")
             break
 
         data = {"input": user_input}
