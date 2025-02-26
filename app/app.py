@@ -12,7 +12,7 @@ llm = OllamaLLM(
 )
 
 prompt_template = generator_prompt_template()
-
+print(prompt_template)
 config = {"configurable": {"thread_id": "1",
                            "prompt_template":prompt_template,
                            "model":llm}
@@ -24,7 +24,7 @@ memory = MemorySaver()
 if __name__ == '__main__':
     app = graph.compile(memory)
     agentState = AgentState()
-    
+
     while True:
         user_input = input("user: ")
         
