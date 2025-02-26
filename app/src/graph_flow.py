@@ -18,6 +18,4 @@ class Graph:
         self.workflow.add_edge("pdf_model", "history")
         self.workflow.add_edge("root", "history")
 
-
-
         return self.workflow.compile(checkpointer=memory)
