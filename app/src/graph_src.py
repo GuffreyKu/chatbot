@@ -1,19 +1,9 @@
 from langchain_core.prompts import ChatPromptTemplate
-from langgraph.graph import MessagesState
 from langchain.chains import ConversationalRetrievalChain
-from langchain_core.messages import HumanMessage, AIMessage
+from langchain_core.messages import AIMessage
 from .pdf_embeding import pdf_embeding
 from .graph_state import AgentState
 
-
-
-def addUserMessageNode(state: AgentState):
-    state["messages"].append(HumanMessage(content=state["messages"][-1].content))
-    return state
-
-def addAIMessageNode(state: AgentState):
-    state["messages"].append(AIMessage(content=state["messages"][-1].content))
-    return state
 
 def generator_prompt_template():
     prompt_template = ChatPromptTemplate([
@@ -41,15 +31,12 @@ def pdf_conditional(state: AgentState):
     else:
         return "root"
 
-
 def get_pdf_path(state: AgentState):
     pdf_path = input("tell me pdf path : ")
     state["pdfPath"] = pdf_path
     return state
 
 def pdf_model(state: AgentState, config: dict):
-    print("!!! pdf model", state)
-
     question = input("What do you want to know : ")
 
     chat_history = []
@@ -64,9 +51,10 @@ def pdf_model(state: AgentState, config: dict):
     return {"messages": AIMessage(result['answer'])}
 
 def call_model(state: AgentState, config: dict):
-    print("!!! call model", state)
+    
     if "historyMsg" not in state.keys():
         state["historyMsg"] = []
+
     prompt = config["configurable"]["prompt_template"]
     chain = prompt|config["configurable"]["model"]
     response = chain.invoke({"question": state["messages"][-1], "history":state["historyMsg"]})
