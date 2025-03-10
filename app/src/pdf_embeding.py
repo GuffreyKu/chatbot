@@ -1,8 +1,7 @@
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
-
+from langchain_ollama import OllamaEmbeddings
 
 def pdf_embeding(pdf_path):
     loader = PyPDFLoader(pdf_path)
@@ -13,9 +12,9 @@ def pdf_embeding(pdf_path):
     docs = text_splitter.split_documents(documents)
 
     # 3. Initialize an embedding model.
-    # Here we use HuggingFaceEmbeddings with a SentenceTransformer model.
-    embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-
+    embedding_model = OllamaEmbeddings(
+        model="bge-m3",
+    )
     # 4. Create a vector store (using FAISS) from the split documents and their embeddings.
     vector_store = FAISS.from_documents(docs, embedding_model)
 
