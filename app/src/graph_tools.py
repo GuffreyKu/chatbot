@@ -29,9 +29,9 @@ def pdf_model(question:str, pdf_path:str):
     retriever = vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 3})  # Retrieves relevant content
     
     model = OllamaLLM(
-        model="deepseek-r1:14b"  
+        model="llama3.1:8b"  
     )
-    
+
     if model is None:
         raise ValueError("Model configuration is missing in the config dictionary.")
     

@@ -1,7 +1,5 @@
 from langchain_core.prompts import ChatPromptTemplate
-from langchain.chains import ConversationalRetrievalChain
 from langchain_core.messages import AIMessage
-from .pdf_embeding import pdf_embeding
 from .graph_state import AgentState
 from .PROMPT import AGENT_PROMPT
 
@@ -34,7 +32,11 @@ def call_model(state: AgentState, config: dict):
         state["historyMsg"] = []
 
     prompt = config["configurable"]["prompt_template"]
+    
     chain = prompt|config["configurable"]["model"]
     response = chain.invoke({"question": state["messages"][-1], "history":state["historyMsg"]})
+
+    print("historyMsg : ", state["historyMsg"])
+    print("response : ", response)
 
     return {"messages": AIMessage(response["messages"][-1].content)}
