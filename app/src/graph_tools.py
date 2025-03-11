@@ -1,11 +1,11 @@
 from langchain_ollama import OllamaLLM
 from langchain_core.tools import tool
 from langchain.chains import ConversationalRetrievalChain
-from .pdf_embeding import pdf_embeding
+from .pdf_embedding import pdf_embeding
 
 
 @tool(parse_docstring=True)
-def pdf_model(question:str, pdf_path:str):
+def pdf_model(pdf_path:str, question:str):
     """
     This tool processes a PDF file and answers questions using a conversational retrieval model.
 

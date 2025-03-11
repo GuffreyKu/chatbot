@@ -7,3 +7,5 @@ AGENT_PROMPT = """\
 	    •	“Who is the author of the attached PDF from path/to/document.pdf??” you get question is "Who is the author of the attached PDF", pdf_path is "path/to/document.pdf" into pdf_model function.
 	    •	“Find references to climate change in this PDF from path/to/document.pdf?.” you get question is "Find references to climate change in this PDF", pdf_path is "path/to/document.pdf" into pdf_model function.
     """
+
+

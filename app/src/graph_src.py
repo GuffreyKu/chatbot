@@ -3,7 +3,6 @@ from langchain_core.messages import AIMessage
 from .graph_state import AgentState
 from .PROMPT import AGENT_PROMPT
 
-
 def generator_prompt_template():
     prompt_template = ChatPromptTemplate([
     ("system", "You are a helpful assistant, you can read pdf and chat with user"),
@@ -27,16 +26,13 @@ def collect_history(state: AgentState):
     return state
 
 def call_model(state: AgentState, config: dict):
-
-    if "historyMsg" not in state.keys():
-        state["historyMsg"] = []
-
-    prompt = config["configurable"]["prompt_template"]
     
-    chain = prompt|config["configurable"]["model"]
-    response = chain.invoke({"question": state["messages"][-1], "history":state["historyMsg"]})
+    collect_history(state)
+    
+    prompt = config["configurable"]["prompt_template"]
 
-    print("historyMsg : ", state["historyMsg"])
-    print("response : ", response)
+    chain = prompt|config["configurable"]["model"]
+
+    response = chain.invoke({"question": state["messages"], "history":state["historyMsg"]})
 
     return {"messages": AIMessage(response["messages"][-1].content)}
