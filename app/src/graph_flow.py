@@ -6,12 +6,11 @@ from .graph_tools import tools
 
 
 def route_tools(state) -> bool:
-
     messages = state["messages"]
     last_message = messages[-1]
     if last_message.tool_calls:
-        return "tools"
-    return END
+        return "continue"
+    return "end"
 
 class Graph:
     def __init__(self):
@@ -23,7 +22,7 @@ class Graph:
         self.workflow.add_node("tools", ToolNode(tools))
 
         self.workflow.add_edge(START, "agent")
-        self.workflow.add_conditional_edges("agent", route_tools)
+        self.workflow.add_conditional_edges("agent", route_tools, {"continue":"tools", "end":END})
         self.workflow.add_edge("tools", "agent")
 
         return self.workflow.compile(checkpointer=memory)

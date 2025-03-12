@@ -8,9 +8,9 @@ from app.src.graph_tools import tools
 llm = ChatOllama(
         model="qwen2.5:14b",
         temperature=0
-    )
+    ).bind_tools(tools)
 
-llm = create_react_agent(llm, tools)
+# llm = create_react_agent(llm, tools)
 
 prompt_template = generator_prompt_template()
 

@@ -35,4 +35,4 @@ def call_model(state: AgentState, config: dict):
 
     response = chain.invoke({"question": state["messages"], "history":state["historyMsg"]})
 
-    return {"messages": AIMessage(response["messages"][-1].content)}
+    return {"messages": [response]}
