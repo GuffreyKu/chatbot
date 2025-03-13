@@ -1,6 +1,5 @@
 from langchain_ollama import ChatOllama
 from langgraph.checkpoint.memory import MemorySaver
-from langgraph.prebuilt import create_react_agent
 from app.src.graph_src import generator_prompt_template
 from app.src.graph_flow import Graph
 from app.src.graph_tools import tools
@@ -9,8 +8,6 @@ llm = ChatOllama(
         model="qwen2.5:14b",
         temperature=0
     ).bind_tools(tools)
-
-# llm = create_react_agent(llm, tools)
 
 prompt_template = generator_prompt_template()
 

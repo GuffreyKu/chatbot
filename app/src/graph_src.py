@@ -1,5 +1,4 @@
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.messages import AIMessage
 from .graph_state import AgentState
 from .PROMPT import AGENT_PROMPT
 

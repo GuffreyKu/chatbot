@@ -2,7 +2,7 @@ from langchain_ollama import OllamaLLM
 from langchain_core.tools import tool
 from langchain.chains import ConversationalRetrievalChain
 from .pdf_embedding import pdf_embeding
-
+from .utils import convert_to_base64
 
 @tool(parse_docstring=True)
 def pdf_model(pdf_path:str, question:str):
@@ -40,14 +40,26 @@ def pdf_model(pdf_path:str, question:str):
 
     return result.get("answer", "No answer found.")  # Returns the answer or a default response
 
+@tool(parse_docstring=True)
+def image_model(image_path:str, question:str)):
+    image_base64 = convert_to_base64(image_path)
+    return image_base64
+
+
 tools =[
     pdf_model,
 ]
 
 if __name__ == '__main__':
-    print(pdf_model)
-    print(pdf_model.name)
-    print(pdf_model.description)
-    print(pdf_model.args)
-    pdf_model.invoke({'question':"Summarize the key points of the document", 
-                      'pdf_path':'/Users/guffrey/chatbot/pdf/Evo2.pdf'})
+    # print(pdf_model)
+    # print(pdf_model.name)
+    # print(pdf_model.description)
+    # print(pdf_model.args)
+    # pdf_model.invoke({'question':"Summarize the key points of the document", 
+    #                   'pdf_path':'/Users/guffrey/chatbot/pdf/Evo2.pdf'})
+    
+    print(image_model)
+    print(image_model.name)
+    print(image_model.description)
+    print(image_model.args)
+    image_model.invoke(image_path="/Users/guffrey/dataset/archive/card_dataset/test/cam_image2.jpg")
