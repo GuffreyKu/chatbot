@@ -1,9 +1,12 @@
 from langgraph.graph import START, END, StateGraph
 from langgraph.prebuilt import ToolNode
-from .graph_src import call_model, collect_history
+from .graph_src import call_model
 from .graph_state import AgentState
-from .graph_tools import tools
+from .tools.image_tool import image_model
+from .tools.pdf_tool import pdf_model
 
+
+tools = [pdf_model, image_model]
 
 def route_tools(state) -> bool:
     messages = state["messages"]
